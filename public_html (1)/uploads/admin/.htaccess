@@ -1,0 +1,9 @@
+# Uploaded files are validated to be JPG/PNG/WEBP images on upload, but
+# this is a defense-in-depth belt-and-braces: never execute anything in
+# this directory as PHP, whatever ends up in here.
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+<FilesMatch "\.(php|phtml|php\d?|phar)$">
+    Require all denied
+</FilesMatch>

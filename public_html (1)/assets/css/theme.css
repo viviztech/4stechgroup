@@ -1,0 +1,27 @@
+:root {
+    --color-slate-50: #f9fafb;
+    --color-slate-100: #f3f4f6;
+    --color-slate-200: #e5e7eb;
+    --color-slate-300: #d1d5db;
+    --color-slate-400: #9ca3af;
+    --color-slate-500: #6b7280;
+    --color-slate-600: #4b5563;
+    --color-slate-700: #374151;
+    --color-slate-800: #1f2937;
+    --color-slate-900: #111827;
+    --color-slate-950: #030712;
+}
+
+[class~="text-[#2A2A2D]"], [class~="text-[#082A5E]"] { color: #001D62; }
+[class~="bg-[#2A2A2D]"], [class~="bg-[#082A5E]"] { background-color: #001D62; }
+[class~="from-[#2A2A2D]"], [class~="from-[#082A5E]"] { --tw-gradient-from: #001D62; --tw-gradient-to: rgb(0 29 98 / 0); }
+[class~="text-[#B61F24]"], [class~="text-[#C2410C]"] { color: #DA591E; }
+[class~="bg-[#B61F24]"], [class~="bg-[#C2410C]"] { background-color: #DA591E; }
+[class~="border-[#B61F24]"], [class~="border-[#C2410C]"] { border-color: #DA591E; }
+[class~="text-[#E14A4F]"] { color: #F4A176; }
+[class~="hover:bg-[#8F1A1E]"]:hover, [class~="hover:bg-[#9A3412]"]:hover { background-color: #B74718; }
+[class~="hover:text-[#FB923C]"]:hover { color: #F4A176; }
+[class~="hover:border-[#B61F24]"]:hover, [class~="hover:border-[#C2410C]"]:hover { border-color: #DA591E; }
+[class~="focus:border-[#2A2A2D]"]:focus, [class~="focus:border-[#082A5E]"]:focus { border-color: #001D62; }
+[class~="focus:ring-[#2A2A2D]"]:focus, [class~="focus:ring-[#082A5E]"]:focus { --tw-ring-color: #001D62; }
+.group:hover [class~="group-hover:text-[#B61F24]"], .group:hover [class~="group-hover:text-[#C2410C]"] { color: #DA591E; }

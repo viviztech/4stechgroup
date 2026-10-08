@@ -1,0 +1,49 @@
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # On hosts where the app code (config/, data/, src/, templates/,
+    # pages/, vendor/, storage/) had to be placed inside the web root
+    # instead of one level above it, block every request into those
+    # folders outright — they're PHP includes and data files, never
+    # meant to be fetched directly by URL. A no-op when those folders
+    # don't exist under the web root at all (the normal layout).
+    RewriteRule ^(config|data|src|templates|pages|vendor|storage|bin|sql)(/|$) - [F,L]
+
+    # Browsers auto-request /favicon.ico; there's no such file, only the
+    # PNG referenced via <link rel="icon"> in <head>, so serve that
+    # instead of letting it 404.
+    RewriteRule ^favicon\.ico$ assets/images/favicon-512.png [L]
+
+    # Serve real files and directories directly (assets, uploads).
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Everything else goes through the front controller.
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# Never allow the SQLite database or env-style config to be served.
+<FilesMatch "\.(sqlite|sqlite-journal|env)$">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>

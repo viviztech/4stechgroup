@@ -57,20 +57,21 @@ final class Router
     public function dispatch(string $method, string $uri): void
     {
         $path = parse_url($uri, PHP_URL_PATH) ?: '/';
+        $query = parse_url($uri, PHP_URL_QUERY);
         $path = rawurldecode($path);
         if ($path !== '/' && str_ends_with($path, '/')) {
             $path = rtrim($path, '/');
         }
 
         if (isset($this->redirects[$path])) {
-            $this->sendRedirect($this->redirects[$path]);
+            $this->sendRedirect($this->redirects[$path], is_string($query) ? $query : null);
             return;
         }
 
         foreach ($this->prefixRedirects as $redirect) {
             if ($path === $redirect['prefix'] || str_starts_with($path, $redirect['prefix'] . '/')) {
                 $rest = substr($path, strlen($redirect['prefix']));
-                $this->sendRedirect($redirect['replacement'] . $rest);
+                $this->sendRedirect($redirect['replacement'] . $rest, is_string($query) ? $query : null);
                 return;
             }
         }
@@ -91,9 +92,12 @@ final class Router
         $this->renderPage('not-found', []);
     }
 
-    private function sendRedirect(string $to): void
+    private function sendRedirect(string $to, ?string $query = null): void
     {
         http_response_code(301);
+        if ($query !== null) {
+            $to .= (str_contains($to, '?') ? '&' : '?') . $query;
+        }
         header('Location: ' . url($to));
     }
 

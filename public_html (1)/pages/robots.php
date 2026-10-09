@@ -8,4 +8,4 @@ echo "User-agent: *\n";
 echo "Allow: /\n";
 echo "Disallow: /uploads/\n";
 echo "\n";
-echo 'Sitemap: ' . url('/sitemap.xml') . "\n";
+echo 'Sitemap: ' . absolute_url('/sitemap.xml') . "\n";

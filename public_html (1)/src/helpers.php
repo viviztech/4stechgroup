@@ -60,11 +60,25 @@ function config(?string $key = null, mixed $default = null): mixed
     return $value;
 }
 
-/** Build an absolute URL from the configured base_url + a site-relative path. */
+/** Build a root-relative URL so internal navigation stays on the current host. */
 function url(string $path = '/'): string
 {
-    $path = '/' . ltrim($path, '/');
-    return config('base_url') . $path;
+    return '/' . ltrim($path, '/');
+}
+
+/** Build an absolute URL for metadata and machine-readable documents. */
+function absolute_url(string $path = '/'): string
+{
+    $baseUrl = rtrim((string) config('base_url'), '/');
+    $configuredHost = strtolower((string) parse_url($baseUrl, PHP_URL_HOST));
+    $requestHost = strtolower((string) parse_url('//' . ($_SERVER['HTTP_HOST'] ?? ''), PHP_URL_HOST));
+    $loopbackHosts = ['localhost', '127.0.0.1', '::1'];
+
+    if (in_array($configuredHost, $loopbackHosts, true) && !in_array($requestHost, $loopbackHosts, true)) {
+        $baseUrl = 'https://4stechgroup.com';
+    }
+
+    return $baseUrl . url($path);
 }
 
 /** Cache-busted asset URL for anything under the web root's /assets. */

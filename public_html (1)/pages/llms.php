@@ -37,14 +37,14 @@ foreach ($industries as $industry) {
 
 echo "\n## Products & Service Lines (19)\n\n";
 foreach ($products as $slug => $product) {
-    echo '- **' . $product['name'] . '**: ' . $product['intro'] . ' (' . url('/products/' . $slug) . ")\n";
+    echo '- **' . $product['name'] . '**: ' . $product['intro'] . ' (' . absolute_url('/products/' . $slug) . ")\n";
 }
 
 echo "\n## Key Pages\n\n";
-echo '- Products: ' . url('/products') . "\n";
-echo '- Industries: ' . url('/industries') . "\n";
-echo '- Global Reach: ' . url('/markets') . "\n";
-echo '- About: ' . url('/about') . "\n";
-echo '- FAQ: ' . url('/faq') . "\n";
-echo '- Contact: ' . url('/contact') . "\n";
-echo '- Request a Quote: ' . url('/request-quote') . "\n";
+echo '- Products: ' . absolute_url('/products') . "\n";
+echo '- Industries: ' . absolute_url('/industries') . "\n";
+echo '- Global Reach: ' . absolute_url('/markets') . "\n";
+echo '- About: ' . absolute_url('/about') . "\n";
+echo '- FAQ: ' . absolute_url('/faq') . "\n";
+echo '- Contact: ' . absolute_url('/contact') . "\n";
+echo '- Request a Quote: ' . absolute_url('/request-quote') . "\n";

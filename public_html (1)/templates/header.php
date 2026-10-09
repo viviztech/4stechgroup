@@ -23,8 +23,8 @@ function render_header(array $meta): void
 
     $title = $seoOverride['meta_title'] ?? $meta['title'] ?? config('site_name');
     $description = truncate($seoOverride['meta_description'] ?? $meta['description'] ?? config('default_meta_description'));
-    $canonical = url($canonicalPath);
-    $ogImage = url($meta['og_image'] ?? '/assets/images/og/default.webp');
+    $canonical = absolute_url($canonicalPath);
+    $ogImage = absolute_url($meta['og_image'] ?? '/assets/images/og/default.webp');
     $ogType = $meta['og_type'] ?? 'website';
     $robots = $meta['robots'] ?? 'index, follow';
     $schemas = array_merge([Seo::organization(), Seo::website()], $meta['schemas'] ?? []);

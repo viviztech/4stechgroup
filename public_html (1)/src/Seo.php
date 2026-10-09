@@ -47,10 +47,10 @@ final class Seo
         return [
             '@context' => 'https://schema.org',
             '@type' => 'Organization',
-            '@id' => url('/#organization'),
+            '@id' => absolute_url('/#organization'),
             'name' => config('site_name'),
-            'url' => url('/'),
-            'logo' => url('/assets/images/4s-tech-logo.png'),
+            'url' => absolute_url('/'),
+            'logo' => absolute_url('/assets/images/4s-tech-logo.png'),
             'description' => config('default_meta_description'),
             'areaServed' => array_values(array_unique($areaServed)),
             'subOrganization' => $subOrganizations,
@@ -63,15 +63,15 @@ final class Seo
         return [
             '@context' => 'https://schema.org',
             '@type' => 'WebSite',
-            '@id' => url('/#website'),
-            'url' => url('/'),
+            '@id' => absolute_url('/#website'),
+            'url' => absolute_url('/'),
             'name' => config('site_name'),
-            'publisher' => ['@id' => url('/#organization')],
+            'publisher' => ['@id' => absolute_url('/#organization')],
             'potentialAction' => [
                 '@type' => 'SearchAction',
                 'target' => [
                     '@type' => 'EntryPoint',
-                    'urlTemplate' => url('/faq') . '?q={search_term_string}',
+                    'urlTemplate' => absolute_url('/faq') . '?q={search_term_string}',
                 ],
                 'query-input' => 'required name=search_term_string',
             ],
@@ -87,7 +87,7 @@ final class Seo
                 '@type' => 'ListItem',
                 'position' => $index + 1,
                 'name' => $item['name'],
-                'item' => $item['url'],
+                'item' => absolute_url($item['url']),
             ];
         }
 
@@ -129,8 +129,8 @@ final class Seo
             '@type' => 'Product',
             'name' => $product['name'],
             'description' => $product['intro'],
-            'url' => $pageUrl,
-            'image' => array_map(static fn (array $image): string => url($image['src']), $images),
+            'url' => absolute_url($pageUrl),
+            'image' => array_map(static fn (array $image): string => absolute_url($image['src']), $images),
             'brand' => [
                 '@type' => 'Brand',
                 'name' => config('site_name_short'),

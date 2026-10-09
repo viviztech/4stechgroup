@@ -46,7 +46,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
 foreach ($urls as $entry) {
     echo "  <url>\n";
-    echo '    <loc>' . e(url($entry['loc'])) . "</loc>\n";
+    echo '    <loc>' . e(absolute_url($entry['loc'])) . "</loc>\n";
     echo '    <priority>' . e($entry['priority']) . "</priority>\n";
     echo "  </url>\n";
 }
